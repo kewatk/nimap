@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+import uvicorn
 
 from app.database import Base, engine
 from app.models import associations, client, project, user  # noqa: F401 — registers all models
@@ -21,3 +22,6 @@ app.include_router(projects.router)
 @app.get("/", tags=["Health"])
 def health_check():
     return {"status": "ok", "message": "Nimap API is running"}
+
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="127.0.0.1", port=3000, reload=True)
